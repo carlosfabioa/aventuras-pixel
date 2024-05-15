@@ -88,3 +88,42 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 //função da animação e efeito sonoro do dano 
+document.addEventListener('DOMContentLoaded', function() {
+    const quadrado = document.getElementById('quadrado');
+    let isOnGround = true;
+
+    function jump() {
+        if (isOnGround) {
+            isOnGround = false;
+            let jumpHeight = 100;
+            let currentBottom = parseInt(getComputedStyle(quadrado).bottom);
+            let jumpDistance = 0;
+
+            const jumpInterval = setInterval(function() {
+                if (jumpDistance >= jumpHeight) {
+                    clearInterval(jumpInterval);
+                    const fallInterval = setInterval(function() {
+                        if (currentBottom <= 0) {
+                            clearInterval(fallInterval);
+                            isOnGround = true;
+                        } else {
+                            currentBottom -= 5;
+                            quadrado.style.bottom = currentBottom + 'px';
+                        }
+                    }, 20);
+                } else {
+                    jumpDistance += 5;
+                    currentBottom = jumpHeight * (1 - Math.pow((jumpDistance / jumpHeight - 1), 2)); // Ajuste para movimento mais suave
+                    quadrado.style.bottom = currentBottom + 'px';
+                }
+            }, 20);
+        }
+    }
+
+    document.addEventListener('keydown', function(event) {
+        if (event.code === 'Space') {
+            jump();
+        }
+    });
+});
+//função de pulo do personagem
