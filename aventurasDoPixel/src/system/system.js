@@ -18,3 +18,14 @@ let personagem = {
 
 // Chama o método receberDano do objeto jogador
 personagem.receberDano(personagem);
+//barbarha som de dano
+function addSoundToAnimation() {
+    const movingSquare = document.getElementById('movingSquare');
+    const sound = document.getElementById('sound');
+
+    movingSquare.addEventListener('animationiteration', () => {
+        sound.play();
+    });
+}
+
+addSoundToAnimation();
