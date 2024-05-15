@@ -18,3 +18,27 @@ let personagem = {
 
 // Chama o método receberDano do objeto jogador
 personagem.receberDano(personagem);
+
+
+// CODIGO PARA ADICIONAR GRAVIDADE NO PLAYER
+
+var player = document.getElementById('player');
+var gravity = 1;                                                         // Defina a força da gravidade
+var playerPosition = {
+    x: 100,
+    y: 1
+};
+function applyGravity() {                                                           // Função para atualizar a posição vertical do jogador com a gravidade
+    if (playerPosition.y < window.innerHeight - player.offsetHeight) {                   // Verifica se o jogador está acima do chão
+        playerPosition.y += gravity;
+        player.style.top = playerPosition.y + 'px';                         // Adiciona a gravidade à posição vertical do jogador
+    }
+}
+function update() {
+    applyGravity();                                                        // Função para atualizar a posição do jogador
+}                               
+function gameLoop() {                               
+    update();                               
+    requestAnimationFrame(gameLoop);                                       // Loop principal do jogo
+}                               
+gameLoop();                                                               // Inicia o loop do jogo
